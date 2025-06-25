@@ -21,15 +21,15 @@ def create_app():
 
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
     app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
-    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
     db.init_app(app)
 
     with app.app_context():
         db.create_all()
 
-    from app.views import bp as views
+    from app.views.auth import bp as auth_bp
 
-    app.register_blueprint(views)
+    app.register_blueprint(auth_bp)
 
     return app
