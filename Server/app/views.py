@@ -1,7 +1,11 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
+from .llm_service import call_gemini_api
 
-bp: Blueprint = Blueprint("auth", __name__)
+bp = Blueprint('views', __name__)
 
-@bp.get("/")
-def hello_world():
-    return "Hello"
+@bp.route('/api/llm_parse', methods=['POST'])
+def parse_food():
+    data = request.get_json()
+    query = data.get("query", "")
+    result = call_gemini_api(query)
+    return jsonify(result)
