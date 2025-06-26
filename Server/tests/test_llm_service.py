@@ -1,5 +1,5 @@
 import pytest
-from app.llm_service import call_gemini_api
+from app.llm.llm_service import call_gemini_api
 
 @pytest.mark.parametrize("food", ["lasagne 300g", "kebab 500g", "kurczak 150g", "ryż 200g"])
 def test_call_gemini_api_returns_valid_macros_with_quantity(food):

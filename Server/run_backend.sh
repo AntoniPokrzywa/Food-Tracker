@@ -1,4 +1,4 @@
-cat db.conf > .env
+#cat db.conf > .env
 docker compose down
 docker compose up -d
 rm -fr venv/
