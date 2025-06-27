@@ -27,7 +27,7 @@ class User(db.Model):
 class UserGoals(db.Model):
     __tablename__ = 'user_goals'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('user.id'), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('account.id'), nullable=False)
     calory_intake: Mapped[int] = mapped_column(Integer, nullable=True)
     protein_intake: Mapped[int] = mapped_column(Integer, nullable=True)
     carbs_intake: Mapped[int] = mapped_column(Integer, nullable=True)
