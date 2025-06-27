@@ -44,7 +44,7 @@ def add_meal():
         calories=meal_data.get("calories"),
         protein=meal_data.get("protein"),
         carbs=meal_data.get("carbs"),
-        fats=meal_data.get("fats"),
+        fat=meal_data.get("fats"),
     )
     db.session.add(meal)
     db.session.commit()
