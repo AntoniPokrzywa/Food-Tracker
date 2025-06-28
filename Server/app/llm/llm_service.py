@@ -31,7 +31,7 @@ def call_gemini_api(query):
     }
 
     try:
-        response = requests.post(url, headers=headers, params=params, json=data)
+        response = requests.post(url, headers=headers, params=params, json=data, timeout=10)
         response.raise_for_status()
         result = response.json()
         logging.debug("Full API response: %s", result)
