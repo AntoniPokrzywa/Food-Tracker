@@ -34,21 +34,21 @@ def call_gemini_api(query):
         response = requests.post(url, headers=headers, params=params, json=data)
         response.raise_for_status()
         result = response.json()
-        logging.debug("Pełna odpowiedź API: %s", result)
+        logging.debug("Full API response: %s", result)
         
         text = result["candidates"][0]["content"]["parts"][0]["text"]
-        logging.debug("Tekst odpowiedzi: %s", text)
+        logging.debug("Response text: %s", text)
         
         text = re.sub(r'```json\n|```', '', text).strip()
-        logging.debug("Oczyszczony tekst: %s", text)
+        logging.debug("Cleaned text: %s", text)
 
         json_data = json.loads(text) if text.strip().startswith("{") else {}
-        logging.debug("Sparowany JSON: %s", json_data)
+        logging.debug("Parsed JSON: %s", json_data)
         
         return json_data
     except requests.exceptions.HTTPError as e:
-        logging.error("Błąd HTTP: %s", str(e))
+        logging.error("HTTP error: %s", str(e))
         return {"error": "API request failed", "details": str(e)}
     except Exception as e:
-        logging.error("Błąd parsowania: %s", str(e))
+        logging.error("Parsing error: %s", str(e))
         return {"error": "Failed to parse Gemini response", "details": str(e)}
