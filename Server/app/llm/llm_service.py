@@ -16,7 +16,49 @@ def load_prompt_template(query):
     
     return prompt_template.format(query=query)
 
+def mock_nutrition_data(food_name, weight):
+    """Mock nutrition data for development when API key is not available"""
+    # Common nutrition values per 100g
+    nutrition_db = {
+        "chicken": {"calories": 165, "protein": 31, "carbs": 0, "fats": 3.6},
+        "rice": {"calories": 111, "protein": 2.6, "carbs": 23, "fats": 0.9},
+        "salmon": {"calories": 208, "protein": 25, "carbs": 0, "fats": 12},
+        "broccoli": {"calories": 34, "protein": 2.8, "carbs": 7, "fats": 0.4},
+        "sweet potato": {"calories": 86, "protein": 1.6, "carbs": 20, "fats": 0.1},
+        "banana": {"calories": 89, "protein": 1.1, "carbs": 23, "fats": 0.3},
+        "apple": {"calories": 52, "protein": 0.3, "carbs": 14, "fats": 0.2},
+        "beef": {"calories": 250, "protein": 26, "carbs": 0, "fats": 15},
+        "pasta": {"calories": 131, "protein": 5, "carbs": 25, "fats": 1.1},
+        "bread": {"calories": 265, "protein": 9, "carbs": 49, "fats": 3.2},
+    }
+    
+    # Find the best match
+    food_lower = food_name.lower()
+    best_match = None
+    
+    for key in nutrition_db:
+        if key in food_lower:
+            best_match = nutrition_db[key]
+            break
+    
+    if not best_match:
+        # Default values for unknown foods
+        best_match = {"calories": 100, "protein": 5, "carbs": 15, "fats": 2}
+    
+    # Calculate based on weight
+    weight_factor = weight / 100
+    return {
+        "calories": round(best_match["calories"] * weight_factor),
+        "protein": round(best_match["protein"] * weight_factor, 1),
+        "carbs": round(best_match["carbs"] * weight_factor, 1),
+        "fats": round(best_match["fats"] * weight_factor, 1)
+    }
+
 def call_gemini_api(query):
+    if not GEMINI_API_KEY:
+        print("⚠️  No Gemini API key found. Using mock nutrition data.")
+        return mock_nutrition_data("chicken", 100)
+    
     prompt = load_prompt_template(query)
 
     url = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent" 

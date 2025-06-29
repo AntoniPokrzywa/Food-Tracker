@@ -76,7 +76,7 @@ def get_meals_by_date(date_str: str):
             "calories": meal.calories,
             "protein": meal.protein,
             "carbs": meal.carbs,
-            "fats": meal.fats,
+            "fats": meal.fat,
         }
         for meal in meals
     ]
@@ -115,7 +115,7 @@ def update_meal(meal_id: int):
     if "carbs" in data:
         meal.carbs = data["carbs"]
     if "fats" in data:
-        meal.fats = data["fats"]
+        meal.fat = data["fats"]
 
     db.session.add(meal)
     db.session.commit()

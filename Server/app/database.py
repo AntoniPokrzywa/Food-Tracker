@@ -34,10 +34,10 @@ class UserGoals(db.Model):
     fat_intake: Mapped[int] = mapped_column(Integer, nullable=True)
     weight: Mapped[int] = mapped_column(Integer, nullable=True)
 
-def Meal(db.Model):
+class Meal(db.Model):
     __tablename__ = 'meal'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('user.id'), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('account.id'), nullable=False)
     name: Mapped[str] = mapped_column(String(250), nullable=True)
     food_weight: Mapped[int] = mapped_column(Integer, nullable=True)
     calories: Mapped[int] = mapped_column(Integer, nullable=True)
