@@ -1,5 +1,12 @@
 import React from 'react';
 
+const MACRO_TARGETS = {
+  calories: 2000,
+  protein: 50,
+  carbohydrates: 275,
+  fat: 70,
+};
+
 const DailySummary = ({ meals }) => {
   const calculateDailyTotals = () => {
     return meals.reduce((totals, meal) => ({
@@ -22,6 +29,22 @@ const DailySummary = ({ meals }) => {
             <p>{value}g</p>
           </div>
         ))}
+      </div>
+      <div className="macro-bars">
+        {Object.entries(MACRO_TARGETS).map(([macro, target]) => {
+          const value = totals[macro] || 0;
+          const percent = Math.min((value / target) * 100, 100);
+          return (
+            <div key={macro} className="macro-bar-row">
+              <div className="macro-bar-label">
+                {macro.charAt(0).toUpperCase() + macro.slice(1)}: {value} / {target}{macro === 'calories' ? ' kcal' : 'g'}
+              </div>
+              <div className="macro-bar-outer">
+                <div className="macro-bar-inner" style={{ width: `${percent}%` }} />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

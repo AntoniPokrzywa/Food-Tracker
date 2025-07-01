@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgb(209, 209, 223);
   min-height: 100vh;
   color: #333;
 }
@@ -136,6 +136,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header h1 {
@@ -174,7 +177,7 @@ body {
 .main-content {
   padding: 40px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 32px auto 0 auto;
 }
 
 .date-selector {
@@ -201,14 +204,21 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-bottom: 40px;
+  width: 100%;
 }
 
-.meal-form-section,
-.daily-summary {
+.meal-form-section {
   background: white;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 350px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .meal-form-section h2,
@@ -313,7 +323,22 @@ body {
   font-weight: 500;
 }
 
+.meal-form {
+  width: 100%;
+  max-width: 100%;
+}
+
 /* Responsive design */
+@media (max-width: 1200px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  .meal-form-section, .daily-summary {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;
@@ -344,4 +369,39 @@ body {
   .auth-card {
     padding: 30px 20px;
   }
+}
+
+.macro-bars {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.macro-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.macro-bar-label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.macro-bar-outer {
+  width: 100%;
+  height: 22px;
+  background: #e1e5e9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(102, 126, 234, 0.08);
+}
+
+.macro-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px 0 0 12px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
 }
