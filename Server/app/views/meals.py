@@ -36,9 +36,7 @@ def add_meal():
     if not meal_data:
         return jsonify({"detail": "Failed to get meal data from llm"}), 500
 
-    print("Meal data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
-    print(meal_data.get("carbohydrates"))
-    print("Meal data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
+
     meal = Meal(
         user_id=user_id,
         date=date,
@@ -69,10 +67,7 @@ def get_meals_by_date(date_str: str):
 
     stmt = select(Meal).where(Meal.user_id == user_id, Meal.date == date)
     meals = db.session.execute(stmt).scalars().all()
-    print("Meals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
-    print(meals[1].protein)
-    print(meals[1].carbs)
-    print("Meals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
+
     meals_data = [
         {
             "id": meal.id,
@@ -86,8 +81,7 @@ def get_meals_by_date(date_str: str):
         }
         for meal in meals
     ]
-    print("_____________________333")
-    print(meals_data)
+
     return jsonify(meals_data), 200
 
 
