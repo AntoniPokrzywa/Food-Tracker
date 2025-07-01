@@ -36,6 +36,9 @@ def add_meal():
     if not meal_data:
         return jsonify({"detail": "Failed to get meal data from llm"}), 500
 
+    print("Meal data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
+    print(meal_data.get("carbohydrates"))
+    print("Meal data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
     meal = Meal(
         user_id=user_id,
         date=date,
@@ -66,7 +69,10 @@ def get_meals_by_date(date_str: str):
 
     stmt = select(Meal).where(Meal.user_id == user_id, Meal.date == date)
     meals = db.session.execute(stmt).scalars().all()
-    
+    print("Meals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
+    print(meals[1].protein)
+    print(meals[1].carbs)
+    print("Meals ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	")
     meals_data = [
         {
             "id": meal.id,
@@ -75,8 +81,8 @@ def get_meals_by_date(date_str: str):
             "food_weight": meal.food_weight,
             "calories": meal.calories,
             "protein": meal.protein,
-            "carbs": meal.carbs,
-            "fats": meal.fat,
+            "carbohydrates": meal.carbs,
+            "fat": meal.fat,
         }
         for meal in meals
     ]
@@ -113,10 +119,10 @@ def update_meal(meal_id: int):
         meal.calories = data["calories"]
     if "protein" in data:
         meal.protein = data["protein"]
-    if "carbs" in data:
-        meal.carbs = data["carbs"]
-    if "fats" in data:
-        meal.fat = data["fats"]
+    if "carbohydrates" in data:
+        meal.carbs = data["carbohydrates"]
+    if "fat" in data:
+        meal.fat = data["fat"]
 
     db.session.add(meal)
     db.session.commit()
