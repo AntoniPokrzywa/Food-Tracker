@@ -8,8 +8,8 @@ const MealCard = ({ meal }) => {
       <div className="meal-nutrition">
         <span>Calories: {meal.calories || 0}</span>
         <span>Protein: {meal.protein || 0}g</span>
-        <span>Carbs: {meal.carbs || 0}g</span>
-        <span>Fats: {meal.fats || 0}g</span>
+        <span>Carbs: {meal.carbohydrates || 0}g</span>
+        <span>Fats: {meal.fat || 0}g</span>
       </div>
     </div>
   );

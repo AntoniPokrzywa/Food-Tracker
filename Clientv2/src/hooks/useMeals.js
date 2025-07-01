@@ -14,6 +14,7 @@ export const useMeals = (selectedDate) => {
       });
       if (response.ok) {
         const mealsData = await response.json();
+        console.log(mealsData);
         setMeals(mealsData);
       }
     } catch (error) {

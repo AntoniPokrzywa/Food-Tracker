@@ -36,7 +36,7 @@ def create_app():
         # Add some test data if database is empty
         from app.database import User
         from sqlalchemy import select
-        if db.session.execute(select(User)).scalar_one_or_none() is None:
+        if db.session.execute(select(User)).first() is None:
             add_test_data()
 
     from app.views.auth import bp as auth_bp

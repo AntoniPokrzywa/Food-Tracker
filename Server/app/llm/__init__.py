@@ -11,7 +11,8 @@ def get_meal_data(name, food_weight):
         # Try to get data from Gemini API first
         query = f"Food: {name}, Weight: {food_weight}g"
         result = call_gemini_api(query)
-        
+        print("_____________________")
+        print(result)
         # If API fails or no key, use mock data
         if "error" in result or not result:
             return mock_nutrition_data(name, food_weight)

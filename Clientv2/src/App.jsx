@@ -25,7 +25,7 @@ const AppRoutes = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const { meals, loading: mealsLoading, error: mealsError, addMeal } = useMeals(selectedDate);
-
+  console.log(meals);
   if (!isAuthenticated) {
     return (
       <Routes>

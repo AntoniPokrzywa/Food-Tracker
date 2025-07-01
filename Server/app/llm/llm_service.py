@@ -8,7 +8,7 @@ import logging
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
+# print(GEMINI_API_KEY)
 def load_prompt_template(query):
     template_path = os.path.join(os.path.dirname(__file__), 'templates', 'nutrition_prompt.txt')
     with open(template_path, 'r') as f:
@@ -47,6 +47,9 @@ def mock_nutrition_data(food_name, weight):
     
     # Calculate based on weight
     weight_factor = weight / 100
+    print(best_match["fats"])
+    print(best_match["protein"]
+    )
     return {
         "calories": round(best_match["calories"] * weight_factor),
         "protein": round(best_match["protein"] * weight_factor, 1),
@@ -86,7 +89,7 @@ def call_gemini_api(query):
 
         json_data = json.loads(text) if text.strip().startswith("{") else {}
         logging.debug("Parsed JSON: %s", json_data)
-        
+        print(json_data)
         return json_data
     except requests.exceptions.HTTPError as e:
         logging.error("HTTP error: %s", str(e))

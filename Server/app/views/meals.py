@@ -43,8 +43,8 @@ def add_meal():
         food_weight=food_weight,
         calories=meal_data.get("calories"),
         protein=meal_data.get("protein"),
-        carbs=meal_data.get("carbs"),
-        fat=meal_data.get("fats"),
+        carbs=meal_data.get("carbohydrates"),
+        fat=meal_data.get("fat"),
     )
     db.session.add(meal)
     db.session.commit()
@@ -66,7 +66,7 @@ def get_meals_by_date(date_str: str):
 
     stmt = select(Meal).where(Meal.user_id == user_id, Meal.date == date)
     meals = db.session.execute(stmt).scalars().all()
-
+    
     meals_data = [
         {
             "id": meal.id,
@@ -80,7 +80,8 @@ def get_meals_by_date(date_str: str):
         }
         for meal in meals
     ]
-
+    print("_____________________333")
+    print(meals_data)
     return jsonify(meals_data), 200
 
 
